@@ -3,10 +3,6 @@
 <h1>Links:</h1>
 <ul>
 {% for video in videos %}
-    <ul>
-    {% for link in video.link %}
-        <li>{{ link.happiness }}, {{ link.anger }}, {{ link.surprise }}</li>
-    {% endfor %}
-    </ul>
+        <li>{{ video.link }} {{ video.time }} {{ video.happiness }}</li>
 {% endfor %}
 </ul>
