@@ -10,44 +10,58 @@ app.config["MONGO_URI"] = 'mongodb://localhost:27017/flask'
 mongo = PyMongo(app)
 
 
-@app.route('/', methods='POST')
+@app.route('/', methods=['POST', 'GET'])
 def homepage():
     videos = mongo.db.videos.find()
-    # plot
-    return render_template('dashboard.html', videos=videos)
+    if request.method == 'POST':
+        query = request.form['query']
+        if query is None:
+            videos.count()
+            return render_template('home.html', videos=videos)
+        else:
+            videos = mongo.db.videos.find_one({'link': query})
+            if videos is not None:
+                return render_template('dashboard/public/index.html')
+            else:
+                return render_template('home.html', videos=videos)
+    else:
+        return render_template('home.html', videos=videos)
 
-    # history = videos = mongo.db.videos.find()
-    # return render_template('dashboard.html', emo_history=history)
 
-
-@app.route('/add', methods='POST')
+@app.route('/add', methods=['POST', 'GET'])
 def add():
     frame = ''
     emo_entry = emo_list(frame)
-    videos = mongo.db.videos.find()
-    mongo.db.videos.insert_one(emo_entry)
-    return render_template('dashboard.html', videos=videos)
-
-
-@app.route('/find', methods='GET')
-def find_video(link=None):
-    if link is None:
+    video = mongo.db.videos.find_one({'link': emo_entry['link']})
+    if video is None:
+        mongo.db.videos.insert_one(emo_entry)
         videos = mongo.db.videos.find()
+        return render_template('home.html', videos=videos)
+    else:
+        #check video time, or add emotions.
+        videos = mongo.db.videos.find()
+        return render_template('home.html', videos=videos)
+
+
+@app.route('/find', methods=['POST', 'GET'])
+def find_video(link=None):
+    videos = mongo.db.videos.find()
+    if link is None:
         videos.count()
-        return render_template('dashboard.html', videos=videos)
+        return render_template('home.html', videos=videos)
     else:
         videos = mongo.db.videos.find_one({'link': link})
         if videos is not None:
-            return render_template('dashboard.html', videos=videos)
+            return render_template('dashboard/public/index.html', videos=videos)
         else:
-            return 'No video found!'
+            return render_template('home.html', videos=videos)
 
 
-@app.route('/delete/', methods='POST')
+@app.route('/delete/', methods=['POST', 'GET'])
 def delete_data(video=None):
     mongo.db.videos.drop()
     videos = mongo.db.videos.find()
-    return render_template('dashboard.html', videos=videos)
+    return render_template('home.html', videos=videos)
 
 
 if __name__ == '__main__':

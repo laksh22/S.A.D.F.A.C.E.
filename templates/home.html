@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+    <head>
+        <link rel="stylesheet" href={{ url_for('static', filename='css/style.css') }}>
+        <link rel="stylesheet" href={{ url_for('static', filename='css/typo.css') }}>
+        <title>User Emotion Recognition</title>
+    </head>
+
+
+    <body>
+
+    <h1><strong class="white">User Emotion Recognition on YouTube Videos</strong></h1>
+    <div class="content" id="content">
+        <form method="POST">
+            <input type="text" class="searchbar" name="query" id="query" value="">
+            <button class="searchbtn" type="submit">Search</button>
+        </form>
+    </div>
+
+    <h2>Links:</h2>
+    <ul>
+    {% for video in videos %}
+            <li>{{ video.link }} {{ video.time }} {{ video.happiness }}</li>
+    {% endfor %}
+    </ul>
+
+    <div class="footer" >
+          <a class="btn-floating btn-tw mx-1" href="https://github.com/ShirleyHan6/nus-hack">
+            <img src="https://cdn3.iconfinder.com/data/icons/popular-services-brands/512/github-512.png" alt="Trulli" width="20" height="20">
+            Github
+          </a>
+    <div class="footer-copyright py-3 text-center">
+        © 2019 Copyright:
+    </div>
+    </div>
+    </body>
+</html>
