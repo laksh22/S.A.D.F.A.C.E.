@@ -7,6 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { Bar, Line } from "react-chartjs-2";
+import ChangeEmotionButton from "./ChangeEmotionButton";
 
 const styles = {
   card: {
@@ -25,7 +26,7 @@ const styles = {
   }
 };
 
-class EmotionChart extends Component {
+class EmotionGraph extends Component {
   constructor(props) {
     super(props);
 
@@ -67,24 +68,37 @@ class EmotionChart extends Component {
 
   render() {
     return (
-      <Card className={styles.card}>
-        <CardContent>
-          <div className="chart">
-            <Bar
-              data={this.state.chartData}
-              options={{
-                title: {
-                  display: true,
-                  text: "Emotions",
-                  fontSize: 25
-                }
-              }}
-            />
-          </div>
-        </CardContent>
-      </Card>
+      <div className="chart">
+        <Line
+          data={this.state.chartData}
+          options={{
+            title: {
+              display: true,
+              text: "Emotions",
+              fontSize: 25
+            }
+          }}
+        />
+      </div>
     );
   }
 }
 
-export default EmotionChart;
+function EmotionChart(props) {
+  const { classes } = props;
+
+  return (
+    <Card className={classes.card}>
+      <CardContent>
+        <EmotionGraph />
+        <ChangeEmotionButton />
+      </CardContent>
+    </Card>
+  );
+}
+
+EmotionChart.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(EmotionChart);
