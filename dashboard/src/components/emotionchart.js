@@ -7,7 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { Bar, Line } from "react-chartjs-2";
-import "../emotionchart.css";
+import ChangeEmotionButton from "./ChangeEmotionButton";
 
 const styles = {
   card: {
@@ -91,6 +91,7 @@ function EmotionChart(props) {
     <Card className={classes.card}>
       <CardContent>
         <EmotionGraph />
+        <ChangeEmotionButton />
       </CardContent>
     </Card>
   );
