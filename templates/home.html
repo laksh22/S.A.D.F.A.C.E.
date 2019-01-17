@@ -1,36 +1,115 @@
 <!DOCTYPE html>
-    <head>
-        <link rel="stylesheet" href={{ url_for('static', filename='css/style.css') }}>
-        <link rel="stylesheet" href={{ url_for('static', filename='css/typo.css') }}>
-        <title>User Emotion Recognition</title>
-    </head>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>User Emotion Recognition</title>
 
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href={{ url_for('static', filename='css/materialize.css') }} />
+  <link href={{ url_for('static', filename='css/style.css') }} /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
+      <ul class="right hide-on-med-and-down">
+        <li ><a href="#">
+          <img hspace="-40" vspace="5" src="https://cdn3.iconfinder.com/data/icons/popular-services-brands/512/github-512.png" alt="Trulli" width="50" height="50">
+          </a></li>
+      </ul>
 
-    <body>
-
-    <h1><strong class="white">User Emotion Recognition on YouTube Videos</strong></h1>
-    <div class="content" id="content">
-        <form method="POST">
-            <input type="text" class="searchbar" name="query" id="query" value="">
-            <button class="searchbtn" type="submit">Search</button>
+      <ul id="nav-mobile" class="sidenav">
+        <li><a href="#">
+          Github Link
+          <img src="https://cdn3.iconfinder.com/data/icons/popular-services-brands/512/github-512.png" alt="Trulli" width="50" height="50">
+         </a>
+        </li>
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center orange-text">User Emotion Recognition on YouTube Videos</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">AI powered emotion recognition on a user watching a YouTube video </h5>
+      </div>
+      <div class="row center">
+        <a href="#" id="download-button" class="btn-large waves-effect waves-light orange">Use in Chrome</a>
+      </div>
+      <br><br>
+       <form method="POST" class="col s12">
+            <div class="input-field col s6" id="content">
+                <input type="text" class="searchbar" name="query" id="query">
+                <label for="content">Video Link</label>
+            </div>
         </form>
     </div>
+  </div>
 
-    <h2>Links:</h2>
-    <ul>
-    {% for video in videos %}
-            <li>{{ video.link }} {{ video.time }} {{ video.happiness }}</li>
-    {% endfor %}
-    </ul>
+  <div class="container">
+    <div class="section">
 
-    <div class="footer" >
-          <a class="btn-floating btn-tw mx-1" href="https://github.com/ShirleyHan6/nus-hack">
-            <img src="https://cdn3.iconfinder.com/data/icons/popular-services-brands/512/github-512.png" alt="Trulli" width="20" height="20">
-            Github
-          </a>
-    <div class="footer-copyright py-3 text-center">
-        © 2019 Copyright:
+      <table>
+        <thead>
+          <tr>
+            <th>Video Title</th>
+            <th>Dominant Emotion</th>
+            <th>Happiness</th>
+            <th>Sadness</th>
+            <th>Anger</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for video in videos %}
+            <tr><td><a href={{ video.link }}>{{ video.title }}</a></td>
+                <td>{{ video.dominant_emotion }}</td>
+                <td>{{ video.happiness }}</td>
+                <td>{{ video.sadness}}</td>
+                <td>{{ video.anger }}</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+
     </div>
+    <br><br>
+  </div>
+
+  <footer class="page-footer orange">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Company Bio</h5>
+          <p class="grey-text text-lighten-4">We are a team of college students working on this project. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+
+
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Tech Stack Credit</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Emotion Recognition</a></li>
+            <li><a class="white-text" href="#!">React</a></li>
+            <li><a class="white-text" href="#!">Flask</a></li>
+            <li><a class="white-text" href="#!">Materialize</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
-    </body>
+    <div class="footer-copyright">
+      <div class="container">
+      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">NTU Hackers</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{{ url_for('static', filename='js/init.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/materialize.js') }}"></script>
+
+  </body>
 </html>

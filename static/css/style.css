@@ -1,31 +1,14 @@
-header{ background:#C7DD8B; height:50px; }
-footer{
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height:100px;
-    background:#ccc;
-}
-.searchbar {
-    border-radius: 5px;
-    margin: 0 10px;
-    vertical-align: middle;
-    width: 150px;
-    height: 30px;
-}
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
 
-.searchbtn {
-    border-radius: 10px;
-    background-color: deepskyblue;
-    color: #fff;
-    border: none;
-    padding: 6px;
-    width: 80px;
-    font-size: smaller;
-    /*font-weight: 700;*/
+.icon-block {
+  padding: 0 15px;
 }
-
-.content {
-    margin-top: 10px;
+.icon-block .material-icons {
+	font-size: inherit;
 }
