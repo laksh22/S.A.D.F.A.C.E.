@@ -14,8 +14,9 @@ emotion_model_path = 'models/_mini_XCEPTION.102-0.66.hdf5'
 # loading models
 face_detection = cv2.CascadeClassifier(detection_model_path)
 emotion_classifier = load_model(emotion_model_path, compile=False)
-EMOTIONS = ["angry" ,"disgust","scared", "happy", "sad", "surprised",
- "neutral"]
+EMOTIONS = ["angry", "disgust", "scared", "happy", "sad", "surprised",
+            "neutral"]
+
 
 def get_dominant_emotion():
     return 'happiness'
@@ -23,12 +24,12 @@ def get_dominant_emotion():
 
 def emo_list(frame):
     emotionDict={}
-    frame = imutils.resize(frame,width=300)
+    frame = imutils.resize(frame, width=300)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    faces = face_detection.detectMultiScale(gray,scaleFactor=1.1,minNeighbors=5,minSize=(30,30),flags=cv2.CASCADE_SCALE_IMAGE)
-    frame = imutils.resize(frame,width=300)
+    faces = face_detection.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30), flags=cv2.CASCADE_SCALE_IMAGE)
+    frame = imutils.resize(frame, width=300)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    faces = face_detection.detectMultiScale(gray,scaleFactor=1.1,minNeighbors=5,minSize=(30,30),flags=cv2.CASCADE_SCALE_IMAGE)
+    faces = face_detection.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30), flags=cv2.CASCADE_SCALE_IMAGE)
     
     canvas = np.zeros((250, 300, 3), dtype="uint8")
     frameClone = frame.copy()
@@ -36,8 +37,8 @@ def emo_list(frame):
         faces = sorted(faces, reverse=True,
         key=lambda x: (x[2] - x[0]) * (x[3] - x[1]))[0]
         (fX, fY, fW, fH) = faces
-                    # Extract the ROI of the face from the grayscale image, resize it to a fixed 28x28 pixels, and then prepare
-            # the ROI for classification via the CNN
+        # Extract the ROI of the face from the grayscale image, resize it to a fixed 28x28 pixels, and then prepare
+        # the ROI for classification via the CNN
         roi = gray[fY:fY + fH, fX:fX + fW]
         roi = cv2.resize(roi, (64, 64))
         roi = roi.astype("float") / 255.0
