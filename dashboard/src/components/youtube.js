@@ -13,7 +13,11 @@ class Youtube extends React.Component {
     };
 
     return (
-      <YouTube videoId="2g811Eo7K8U" opts={opts} onReady={this._onReady} />
+      <YouTube
+        videoId={this.props.videoLink.split("?v=")[1].split("&")[0]}
+        opts={opts}
+        onReady={this._onReady}
+      />
     );
   }
 
