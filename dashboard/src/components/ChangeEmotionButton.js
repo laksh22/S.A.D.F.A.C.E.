@@ -2,12 +2,9 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import Input from "@material-ui/core/Input";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
-import FilledInput from "@material-ui/core/FilledInput";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
@@ -40,6 +37,17 @@ class ChangeEmotionButton extends Component {
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
+    switch (event.target.value) {
+      case 10:
+        this.props.emotionHandler("Happiness");
+        break;
+      case 20:
+        this.props.emotionHandler("Anger");
+        break;
+      case 30:
+        this.props.emotionHandler("Surprise");
+        break;
+    }
   };
 
   render() {
@@ -67,9 +75,15 @@ class ChangeEmotionButton extends Component {
               />
             }
           >
-            <MenuItem value={10}>Happiness</MenuItem>
-            <MenuItem value={20}>Anger</MenuItem>
-            <MenuItem value={30}>Surprise</MenuItem>
+            <MenuItem value={10} text="Happiness">
+              Happiness
+            </MenuItem>
+            <MenuItem value={20} text="Anger">
+              Anger
+            </MenuItem>
+            <MenuItem value={30} text="Surprise">
+              Surprise
+            </MenuItem>
           </Select>
         </FormControl>
       </form>
