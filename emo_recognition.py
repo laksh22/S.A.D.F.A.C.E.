@@ -30,8 +30,6 @@ def emo_list(frame):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = face_detection.detectMultiScale(gray,scaleFactor=1.1,minNeighbors=5,minSize=(30,30),flags=cv2.CASCADE_SCALE_IMAGE)
     
-    canvas = np.zeros((250, 300, 3), dtype="uint8")
-    frameClone = frame.copy()
     if len(faces) > 0:
         faces = sorted(faces, reverse=True,
         key=lambda x: (x[2] - x[0]) * (x[3] - x[1]))[0]
@@ -46,11 +44,11 @@ def emo_list(frame):
         
         
         preds = emotion_classifier.predict(roi)[0]
-        emotion_probability = np.max(preds)
-        label = EMOTIONS[preds.argmax()]
 
         for (i, (emotion, prob)) in enumerate(zip(EMOTIONS, preds)):
             emotionDict[emotion]=prob*100
+        dominant_emotion=sorted(list(emotionDict.items()), key=lambda x: x[1], reverse=True)[0]
+        emotionDict['dominant']=dominant_emotion[0]
     return emotionDict # append other metadata you want to be returned if you want
 
 
