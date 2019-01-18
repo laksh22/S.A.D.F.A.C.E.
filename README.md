@@ -10,4 +10,4 @@
 ## Dashboard front-end
 
 1. `cd` into `dashboard` folder.
-2. Run `npm start` in cmd.
+2. Run 'npm install', then `npm start` in cmd.
