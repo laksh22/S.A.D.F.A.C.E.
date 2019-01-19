@@ -4,5 +4,6 @@ $(document).ready(function(){
     tablink.href = tab.url;
     $('#host').html("Host : " + tablink)
 		});
-// console.log(tablink);
+	// var timestamp = document.querySelector('.video-stream').getCurrentTime();
+	// $('#time').html("Current Time : " + timestamp);
 });

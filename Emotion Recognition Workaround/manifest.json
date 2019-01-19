@@ -12,6 +12,7 @@
   "background": {
     "scripts": ["background.js"]
 },
+"content_security_policy": "script-src 'self' https://www.youtube.com/iframe_api; object-src 'self'",
 
   "permissions": [
     "tabs"
