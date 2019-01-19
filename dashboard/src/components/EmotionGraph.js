@@ -4,14 +4,14 @@ import { Line } from "react-chartjs-2";
 class EmotionGraph extends Component {
   constructor(props) {
     super(props);
-
+    this.changeGraph = this.changeGraph.bind(this);
     this.state = {
       chartData: {
-        labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+        labels: this.props.labels,
         datasets: [
           {
             label: "Percentage",
-            data: [0, 10, 25, 43, 52, 82, 60, 88, 34, 23, 54],
+            data: this.props.data,
             backgroundColor: this.props.color
           }
         ]
@@ -20,18 +20,34 @@ class EmotionGraph extends Component {
     };
   }
 
+  changeGraph() {
+    this.interval = setInterval(() => {
+      const datasetsCopy = this.state.chartData.datasets;
+      const dataCopy = datasetsCopy[0].data;
+      dataCopy[this.props.currentTime] = 1;
+
+      console.log(`NEW TIME: ${dataCopy}`);
+
+      this.setState({
+        chartData: Object.assign({}, this.state.chartData, {
+          datasets: [
+            {
+              label: "Percentage",
+              data: dataCopy,
+              backgroundColor: this.props.color
+            }
+          ]
+        })
+      });
+    }, 1000);
+  }
+
   componentDidMount() {
     this.interval = setInterval(() => {
-      console.log(this.state.chartData.datasets[0].data[this.state.graphTime]);
-      var dataProperty = {
-        ...this.state.chartData.datasets[0].data[this.state.graphTime]
-      };
-      dataProperty = 1;
       this.setState({
         graphTime: this.props.currentTime
       });
-      this.setState({ dataProperty });
-      console.log(this.state.chartData.datasets[0].data[this.state.graphTime]);
+      //this.changeGraph();
     }, 1000);
   }
 
@@ -39,6 +55,7 @@ class EmotionGraph extends Component {
     return (
       <div className="chart">
         <Line
+          key="1"
           data={this.state.chartData}
           options={{
             title: {
