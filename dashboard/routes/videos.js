@@ -7,7 +7,10 @@ const Video = require("../models/Emotion");
 //@desc   Get all items
 //@access Public
 router.get("/", (req, res) => {
-  Video.find().then(videos => res.json(videos));
+  Video.find().then(videos => {
+    res.json(videos);
+    console.log(videos);
+  });
 });
 
 module.exports = router;
