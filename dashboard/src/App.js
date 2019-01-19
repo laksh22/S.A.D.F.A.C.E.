@@ -13,10 +13,12 @@ class App extends Component {
     this.changeEmotion = this.changeEmotion.bind(this);
     this.changeVideo = this.changeVideo.bind(this);
     this.updateTime = this.updateTime.bind(this);
+    this.setDominantColor = this.setDominantColor.bind(this);
+    this.mode = this.mode.bind(this);
     this.state = {
       emotion: "Happiness",
       color: "rgba(255, 99, 132, 0.6)",
-      videoLink: "https://www.youtube.com/watch?v=_TUTJ0klnKk",
+      videoLink: "2JAElThbKrI",
       time: 0,
       labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
       data: [0, 10, 25, 43, 52, 82, 60, 88, 34, 23, 54],
@@ -26,7 +28,10 @@ class App extends Component {
       happy: [],
       sad: [],
       surprised: [],
-      neutral: []
+      neutral: [],
+      dominant: [],
+      dominantColor: "",
+      dominantEmotionText: ""
     };
   }
 
@@ -50,9 +55,11 @@ class App extends Component {
           scared: result[0].scared,
           sad: result[0].sadness,
           surprised: result[0].surprise,
-          neutral: result[0].neutral
+          neutral: result[0].neutral,
+          dominant: result[0]["dominant emotion"]
         });
       });
+    this.setDominantColor();
   }
 
   changeEmotion(newEmotion) {
@@ -80,6 +87,7 @@ class App extends Component {
       newColor = "rgba(139,69,19, 0.6)";
       newEmotionData = this.state.disgust;
     }
+
     this.setState({
       emotion: newEmotion,
       data: newEmotionData,
@@ -87,14 +95,66 @@ class App extends Component {
     });
   }
 
-  changeVideo(video) {
+  mode(array) {
+    if (array.length === 0) return null;
+    var modeMap = {};
+    var maxEl = array[0],
+      maxCount = 1;
+    for (var i = 0; i < array.length; i++) {
+      var el = array[i];
+      if (modeMap[el] == null) modeMap[el] = 1;
+      else modeMap[el]++;
+      if (modeMap[el] > maxCount) {
+        maxEl = el;
+        maxCount = modeMap[el];
+      }
+    }
+    return maxEl;
+  }
+
+  setDominantColor() {
+    var dominantEmotion = this.mode(this.state.dominant);
+    var addColor = "";
+    var domEmotionText = "";
+    if (dominantEmotion === "happiness") {
+      addColor = "rgba(10, 160, 20, 0.6)";
+      domEmotionText = "Happy";
+    } else if (dominantEmotion === "anger") {
+      addColor = "rgba(255, 99, 132, 0.6)";
+      domEmotionText = "Anger";
+    } else if (dominantEmotion === "surprise") {
+      addColor = "rgba(210, 210, 86, 0.6)";
+      domEmotionText = "Surprise";
+    } else if (dominantEmotion === "sadness") {
+      addColor = "rgba(25, 26, 86, 0.6)";
+      domEmotionText = "Sadness";
+    } else if (dominantEmotion === "neutral") {
+      addColor = "rgba(54, 162, 235, 0.6)";
+      domEmotionText = "Neutral";
+    } else if (dominantEmotion === "scared") {
+      addColor = "rgba(180, 0, 0, 0.6)";
+      domEmotionText = "Scared";
+    } else if (dominantEmotion === "disgut") {
+      addColor = "rgba(139,69,19, 0.6)";
+      domEmotionText = "Disgust";
+    }
+
     this.setState({
-      videoLink: video
+      dominantColor: addColor,
+      dominantEmotionText: domEmotionText
+    });
+    console.log("THIS IS THE DOMINANT EMOTION: " + dominantEmotion);
+  }
+
+  changeVideo(video) {
+    var vidIndex = video.split("?v=")[1].split("&")[0];
+    this.setState({
+      videoLink: vidIndex
     });
     console.log("NEW LINK: " + this.state.videoLink);
     axios
       .get(
-        `https://api.mlab.com/api/1/databases/nushack/collections/video?q={link:"${video}"}&apiKey=jK4P4v-hA_-MNUJ_xXoHGD6T0bZYehNU`
+        `https://api.mlab.com/api/1/databases/nushack/collections/video?q={link:"${vidIndex}"}&apiKey=jK4P4v-hA_-MNUJ_xXoHGD6T0bZYehNU`
       )
       .then(result => {
         console.log("API DATA: " + result.data[0].happiness);
@@ -106,7 +166,8 @@ class App extends Component {
           scared: result.data[0].scared,
           sad: result.data[0].sadness,
           surprised: result.data[0].surprise,
-          neutral: result.data[0].neutral
+          neutral: result.data[0].neutral,
+          dominant: result[0]["dominant emotion"]
         });
       })
       .catch(error =>
@@ -115,12 +176,17 @@ class App extends Component {
           isLoading: false
         })
       );
+    this.setDominantColor();
   }
 
   updateTime(newTime) {
+    //var newData = this.state.happy;
+    //newData[newTime] = 1;
     this.setState({
       time: newTime
+      //happy: newData
     });
+    //console.log("TIME UPDATED TO: " + this.state.happy);
   }
 
   render() {
@@ -150,6 +216,8 @@ class App extends Component {
               currentTime={this.state.time}
               labels={this.state.labels}
               data={this.state.data}
+              dominantColor={this.state.dominantColor}
+              dominantEmotionText={this.state.dominantEmotionText}
             />
           </Grid>
         </Grid>
