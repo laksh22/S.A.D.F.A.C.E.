@@ -3,6 +3,8 @@ from flask import request, jsonify, render_template
 from emo_recognition import open_camera
 from database import MLab
 app = Flask(__name__)
+import sys
+
 
 db = MLab()
 print(db)
@@ -10,6 +12,10 @@ print(db)
 @app.route('/', methods=['POST', 'GET'])
 def homepage():
     docs = []
+    form = request.form
+    print(sys.getsizeof(form))
+    print()
+    print("Magic:", request.form['time'])
     for doc in db.video.find():
         doc.pop('_id')
         docs.append(doc)
@@ -18,9 +24,9 @@ def homepage():
 
 @app.route('/go/', methods=['POST','GET'])
 def add():
-    data = request.get_json()
+    data = request.form_data_parser_class()
     print(data)
-    emo_entry = open_camera("https://www.youtube.com/watch?v=2JAElThbKrI")
+    emo_entry = open_camera("2JAElThbKrI")
     db.video.insert_one(emo_entry)
     return render_template('home.html')
 
