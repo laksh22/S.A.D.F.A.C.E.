@@ -35,17 +35,15 @@ const styles = theme => ({
 });
 
 let id = 0;
-function createData(name, calories, fat, carbs, protein) {
+function createData(name, dominant) {
   id += 1;
-  return { id, name, calories, fat, carbs, protein };
+  return { id, name, dominant };
 }
 
 const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9)
+  createData("One Punch Man", "Happy"),
+  createData("Battlefield 5", "Anger"),
+  createData("YouTube Rewind 2018", "Sad")
 ];
 
 function SampleTable(props) {
@@ -58,9 +56,6 @@ function SampleTable(props) {
           <TableRow>
             <CustomTableCell>Video Title</CustomTableCell>
             <CustomTableCell align="right">Dominant Emotion</CustomTableCell>
-            <CustomTableCell align="right">Happiness</CustomTableCell>
-            <CustomTableCell align="right">Sadness</CustomTableCell>
-            <CustomTableCell align="right">Anger</CustomTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -69,10 +64,7 @@ function SampleTable(props) {
               <CustomTableCell component="th" scope="row">
                 {row.name}
               </CustomTableCell>
-              <CustomTableCell align="right">{row.calories}</CustomTableCell>
-              <CustomTableCell align="right">{row.fat}</CustomTableCell>
-              <CustomTableCell align="right">{row.carbs}</CustomTableCell>
-              <CustomTableCell align="right">{row.protein}</CustomTableCell>
+              <CustomTableCell align="right">{row.dominant}</CustomTableCell>
             </TableRow>
           ))}
         </TableBody>
