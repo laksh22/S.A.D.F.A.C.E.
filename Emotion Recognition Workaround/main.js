@@ -110,13 +110,17 @@ function handleSuccess(stream) {
 }
 
 async function init(constraints) {
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia(constraints);
-    handleSuccess(stream);
-  } catch (e) {
-    console.error('navigator.getUserMedia error:', e);
-    errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
-  }
+  var stream, imageCapture;
+  window.navigator.mediaDevices.getUserMedia({video: true})
+  .then(function(mediaStream)
+  {
+      stream = mediaStream;
+      let mediaStreamTrack = mediaStream.getVideoTracks()[0];
+      imageCapture = new ImageCapture(mediaStreamTrack);
+      console.log(imageCapture);
+  })
+  .catch(error);
+
 }
 
 document.querySelector('button#start').addEventListener('click', async () => {

@@ -9,13 +9,13 @@ import sys
 db = MLab()
 print(db)
 #
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/', methods=['GET','POST'])
 def homepage():
     docs = []
-    form = request.form
+    form = request.form.get('time1', "")
+    print(form)
     print(sys.getsizeof(form))
-    print()
-    print("Magic:", request.form['time'])
+
     for doc in db.video.find():
         doc.pop('_id')
         docs.append(doc)
