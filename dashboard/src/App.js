@@ -16,8 +16,20 @@ class App extends Component {
       emotion: "Happiness",
       color: "rgba(255, 99, 132, 0.6)",
       videoLink: "https://www.youtube.com/watch?v=2JAElThbKrI",
-      time: 0
+      time: 0,
+      labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+      data: [0, 10, 25, 43, 52, 82, 60, 88, 34, 23, 54]
     };
+  }
+
+  getData() {
+    fetch("/search/videos")
+      .then(res => res.json())
+      .then(data => console.log(data));
+  }
+
+  componentDidMount() {
+    this.getData();
   }
 
   changeEmotion(newEmotion) {
@@ -31,8 +43,10 @@ class App extends Component {
     }
     this.setState({
       emotion: newEmotion,
+      data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 9],
       color: newColor
     });
+    console.log(this.state.color);
   }
 
   changeVideo(video) {
@@ -74,6 +88,8 @@ class App extends Component {
               emotion={this.state.emotion}
               color={this.state.color}
               currentTime={this.state.time}
+              labels={this.state.labels}
+              data={this.state.data}
             />
           </Grid>
         </Grid>
