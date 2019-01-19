@@ -5,6 +5,7 @@ import SearchBar from "./components/SearchBar";
 import SampleTable from "./components/SampleTable";
 import AppNavbar from "./components/AppNavbar";
 import Grid from "@material-ui/core/Grid";
+import { Container, Row, Col } from "reactstrap";
 import axios from "axios";
 
 class App extends Component {
@@ -21,7 +22,7 @@ class App extends Component {
       videoLink: "2JAElThbKrI",
       time: 0,
       labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
-      data: [0, 10, 25, 43, 52, 82, 60, 88, 34, 23, 54],
+      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       angry: [],
       disgust: [],
       scared: [],
@@ -147,7 +148,10 @@ class App extends Component {
   }
 
   changeVideo(video) {
-    var vidIndex = video.split("?v=")[1].split("&")[0];
+    var vidIndex = "";
+    if (video.includes("?v=")) {
+      vidIndex = video.split("?v=")[1].split("&")[0];
+    }
     this.setState({
       videoLink: vidIndex
     });
@@ -166,14 +170,21 @@ class App extends Component {
           scared: result.data[0].scared,
           sad: result.data[0].sadness,
           surprised: result.data[0].surprise,
-          neutral: result.data[0].neutral,
-          dominant: result[0]["dominant emotion"]
+          neutral: result.data[0].neutral
         });
+        console.log(this.state.happy);
       })
       .catch(error =>
         this.setState({
-          error,
-          isLoading: false
+          data: [0, 0, 0, 0, 0],
+          happy: [0, 0, 0, 0, 0],
+          angry: [0, 0, 0, 0, 0],
+          disgust: [0, 0, 0, 0, 0],
+          scared: [0, 0, 0, 0, 0],
+          sad: [0, 0, 0, 0, 0],
+          surprised: [0, 0, 0, 0, 0],
+          neutral: [0, 0, 0, 0, 0],
+          videoLink: ""
         })
       );
     this.setDominantColor();
@@ -200,15 +211,21 @@ class App extends Component {
           justify="center"
           style={{ minHeight: "100vh" }}
         >
-          <Grid>
+          <Grid item>
             <AppNavbar />
             <SearchBar videoChanger={this.changeVideo} />
-            <SampleTable />
-            <Youtube
-              videoLink={this.state.videoLink}
-              currentTime={this.state.time}
-              updateTime={this.updateTime}
-            />
+            <Grid container>
+              <Grid item xs={6}>
+                <SampleTable />
+              </Grid>
+              <Grid item xs={6}>
+                <Youtube
+                  videoLink={this.state.videoLink}
+                  currentTime={this.state.time}
+                  updateTime={this.updateTime}
+                />
+              </Grid>
+            </Grid>
             <EmotionCard
               emotionHandler={this.changeEmotion}
               emotion={this.state.emotion}
@@ -218,6 +235,15 @@ class App extends Component {
               data={this.state.data}
               dominantColor={this.state.dominantColor}
               dominantEmotionText={this.state.dominantEmotionText}
+              graphData={[
+                this.state.angry,
+                this.state.disgust,
+                this.state.scared,
+                this.state.happy,
+                this.state.sad,
+                this.state.surprised,
+                this.state.neutral
+              ]}
             />
           </Grid>
         </Grid>

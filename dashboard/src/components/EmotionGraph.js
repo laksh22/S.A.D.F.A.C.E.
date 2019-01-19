@@ -57,7 +57,6 @@ class EmotionGraph extends Component {
           ]
         }
       });
-      //this.changeGraph();
     }, 1000);
   }
 
