@@ -7,17 +7,32 @@ class EmotionGraph extends Component {
 
     this.state = {
       chartData: {
-        labels: ["0:10", "0:20", "0:30", "0:40", "0:50", "0:60"],
+        labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
         datasets: [
           {
             label: "Percentage",
-            data: [10, 25, 43, 52, 82, 60],
-            //backgroundColor:'green',
+            data: [0, 10, 25, 43, 52, 82, 60, 88, 34, 23, 54],
             backgroundColor: this.props.color
           }
         ]
-      }
+      },
+      graphTime: 0
     };
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(() => {
+      console.log(this.state.chartData.datasets[0].data[this.state.graphTime]);
+      var dataProperty = {
+        ...this.state.chartData.datasets[0].data[this.state.graphTime]
+      };
+      dataProperty = 1;
+      this.setState({
+        graphTime: this.props.currentTime
+      });
+      this.setState({ dataProperty });
+      console.log(this.state.chartData.datasets[0].data[this.state.graphTime]);
+    }, 1000);
   }
 
   render() {
