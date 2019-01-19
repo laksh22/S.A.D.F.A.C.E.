@@ -16,5 +16,12 @@ $(document).ready(function(){
     var tablink = document.createElement('a');
     tablink.href = tab.url;
     $('#host').html("Host : " + tablink)
-		})
+		});
+// document.getElementById("maincam").onclick=callMainCam;
+// function callMainCam(){
+//   document.getElementById("ok").innerHTML="ok nice";
+// }
+$("#maincam").click(function(){
+  $("#ok").html("OK nice")
+});
 });
