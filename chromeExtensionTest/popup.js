@@ -17,5 +17,4 @@ $(document).ready(function(){
     tablink.href = tab.url;
     $('#host').html("Host : " + tablink)
 		})
-console.log(tablink);
 });
