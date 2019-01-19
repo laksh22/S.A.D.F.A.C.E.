@@ -17,6 +17,12 @@ $(document).ready(function(){
     tablink.href = tab.url;
     $('#host').html("Host : " + tablink)
 		});
+        // ajax the JSON to the server
+    $.post("receiver", tablink, function(){
+    });
+	// stop link reloading the page
+ event.preventDefault();
+}
 // document.getElementById("maincam").onclick=callMainCam;
 // function callMainCam(){
 //   document.getElementById("ok").innerHTML="ok nice";
@@ -24,4 +30,4 @@ $(document).ready(function(){
 $("#maincam").click(function(){
   $("#ok").html("OK nice")
 });
-});
+
