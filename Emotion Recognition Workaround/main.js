@@ -3,7 +3,8 @@ mediaSource.addEventListener('sourceopen', handleSourceOpen, false);
 let mediaRecorder;
 let recordedBlobs;
 let sourceBuffer;
-
+const Http1 = new XMLHttpRequest();
+let data1 = new FormData();
 const errorMsgElement = document.querySelector('span#errorMsg');
 const recordedVideo = document.querySelector('video#recorded');
 const recordButton = document.querySelector('button#record');
@@ -50,11 +51,35 @@ function handleSourceOpen(event) {
   console.log('Source buffer: ', sourceBuffer);
 }
 
+function blobToString(b) {
+  var u, x;
+  u = URL.createObjectURL(b);
+  x = new XMLHttpRequest();
+  x.open('GET', u, false); // although sync, you're not fetching over internet
+  x.send();
+  URL.revokeObjectURL(u);
+  return x.responseText;
+  }
+
 function handleDataAvailable(event) {
+
   if (event.data && event.data.size > 0) {
     recordedBlobs.push(event.data);
+      blob=event.data
+      const reader = new FileReader();
+      e=event;
+      reader.addEventListener('loadend', (e) => {
+        const text = e.srcElement.result;
+        console.log(text);
+      });
+
+      reader.readAsText(blob)
+      blobString=e.srcElement.result;
+      data1.append('1',blobString);    
+      console.log(blobToString);
+    }
   }
-}
+  
 
 function startRecording() {
   recordedBlobs = [];
@@ -110,17 +135,18 @@ function handleSuccess(stream) {
 }
 
 async function init(constraints) {
-  var stream, imageCapture;
-  window.navigator.mediaDevices.getUserMedia({video: true})
-  .then(function(mediaStream)
-  {
-      stream = mediaStream;
-      let mediaStreamTrack = mediaStream.getVideoTracks()[0];
-      imageCapture = new ImageCapture(mediaStreamTrack);
-      console.log(imageCapture);
-  })
-  .catch(error);
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    handleSuccess(stream);
+  } catch (e) {
+    console.error('navigator.getUserMedia error:', e);
+    errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
+  }
+}
 
+function error(error)
+{ 
+    console.error('error:', error); 
 }
 
 document.querySelector('button#start').addEventListener('click', async () => {
@@ -137,7 +163,12 @@ document.querySelector('button#start').addEventListener('click', async () => {
 });
 
 
-
+const url1="http://127.0.0.1:5000";
+Http1.open("POST", url1)
+Http1.send(data1);
+Http1.onreadystatechange=(e)=>{
+console.log(Http.responseText)
+};
 
 
 
