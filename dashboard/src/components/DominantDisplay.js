@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
+import Button from "@material-ui/core/Button";
 
 const styles = theme => ({
   root: {
@@ -19,15 +20,12 @@ function DominantDisplay(props) {
   const { classes, color, dominantEmotionText } = props;
   return (
     <div className={classes.root}>
-      <Chip
-        label={dominantEmotionText}
-        className={classes.chip}
-        component="a"
-        href="#chip"
-        clickable
-        style={{ backgroundColor: color }}
-        //color="primary"
-      />
+      <Button
+        variant="outlined"
+        style={{ backgroundColor: color, fontSize: "50" }}
+      >
+        {dominantEmotionText}
+      </Button>
     </div>
   );
 }

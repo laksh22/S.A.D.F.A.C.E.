@@ -5,6 +5,7 @@ import SearchBar from "./components/SearchBar";
 import SampleTable from "./components/SampleTable";
 import AppNavbar from "./components/AppNavbar";
 import Grid from "@material-ui/core/Grid";
+import { Container, Row, Col } from "reactstrap";
 import axios from "axios";
 
 class App extends Component {
@@ -200,15 +201,21 @@ class App extends Component {
           justify="center"
           style={{ minHeight: "100vh" }}
         >
-          <Grid>
+          <Grid item>
             <AppNavbar />
             <SearchBar videoChanger={this.changeVideo} />
-            <SampleTable />
-            <Youtube
-              videoLink={this.state.videoLink}
-              currentTime={this.state.time}
-              updateTime={this.updateTime}
-            />
+            <Grid container>
+              <Grid item xs={6}>
+                <SampleTable />
+              </Grid>
+              <Grid item xs={6}>
+                <Youtube
+                  videoLink={this.state.videoLink}
+                  currentTime={this.state.time}
+                  updateTime={this.updateTime}
+                />
+              </Grid>
+            </Grid>
             <EmotionCard
               emotionHandler={this.changeEmotion}
               emotion={this.state.emotion}

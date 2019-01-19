@@ -4,6 +4,11 @@ import { Line } from "react-chartjs-2";
 class OverallGraph extends Component {
   constructor(props) {
     super(props);
+    /*
+    var labelArr = [];
+    this.props.labels.forEach(val => {
+      labelArr.push(`${Math.floor(val / 60)}:${(0.01 * val) % 60}`);
+    });*/
     this.state = {
       chartData: {
         labels: this.props.labels,
@@ -55,6 +60,11 @@ class OverallGraph extends Component {
 
   componentWillMount() {
     this.interval = setInterval(() => {
+      /*
+      var labelArr = [];
+      this.props.labels.forEach(val => {
+        labelArr.push(`${Math.floor(val / 60)}:${(0.01 * val) % 60}`);
+      });*/
       this.setState({
         chartData: {
           labels: this.props.labels,
@@ -97,7 +107,6 @@ class OverallGraph extends Component {
           ]
         }
       });
-      console.log("YO " + this.props.graphData[3]);
     }, 1000);
   }
 
