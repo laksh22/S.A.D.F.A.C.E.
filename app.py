@@ -12,7 +12,7 @@ print(db)
 @app.route('/', methods=['GET','POST'])
 def homepage():
     docs = []
-    form = request.form.get('time1', "")
+    form = request.form.get('1', "")
     print(form)
     print(sys.getsizeof(form))
 

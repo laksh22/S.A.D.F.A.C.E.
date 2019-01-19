@@ -3,6 +3,7 @@ mediaSource.addEventListener('sourceopen', handleSourceOpen, false);
 let mediaRecorder;
 let recordedBlobs;
 let sourceBuffer;
+let i = 0;
 const Http1 = new XMLHttpRequest();
 let data1 = new FormData();
 const errorMsgElement = document.querySelector('span#errorMsg');
@@ -65,7 +66,7 @@ function handleDataAvailable(event) {
 
   if (event.data && event.data.size > 0) {
     recordedBlobs.push(event.data);
-      blob=event.data
+      blob=event.data;
       const reader = new FileReader();
       e=event;
       reader.addEventListener('loadend', (e) => {
@@ -73,10 +74,10 @@ function handleDataAvailable(event) {
         console.log(text);
       });
 
-      reader.readAsText(blob)
-      blobString=e.srcElement.result;
-      data1.append('1',blobString);    
-      console.log(blobToString);
+      reader.readAsText(blob);
+      blobString = e.srcElement.result;
+      data1.append(("1", "string"));
+      i++;
     }
   }
   
