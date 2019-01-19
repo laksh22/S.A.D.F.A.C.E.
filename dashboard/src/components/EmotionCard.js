@@ -13,7 +13,15 @@ const styles = {
 };
 
 function EmotionCard(props) {
-  const { classes, emotion, emotionHandler, color, currentTime } = props;
+  const {
+    classes,
+    emotion,
+    emotionHandler,
+    color,
+    currentTime,
+    labels,
+    data
+  } = props;
 
   return (
     <Card className={classes.card}>
@@ -22,6 +30,8 @@ function EmotionCard(props) {
           emotion={emotion}
           color={color}
           currentTime={currentTime}
+          labels={labels}
+          data={data}
         />
         <ChangeEmotionButton emotionHandler={emotionHandler} />
       </CardContent>
@@ -34,7 +44,9 @@ EmotionCard.propTypes = {
   emotion: PropTypes.string.isRequired,
   emotionHandler: PropTypes.func.isRequired,
   color: PropTypes.string.isRequired,
-  currentTime: PropTypes.number.isRequired
+  currentTime: PropTypes.number.isRequired,
+  labels: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired
 };
 
 export default withStyles(styles)(EmotionCard);
