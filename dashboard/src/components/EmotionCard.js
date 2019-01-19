@@ -6,6 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import ChangeEmotionButton from "./ChangeEmotionButton";
 import EmotionGraph from "./EmotionGraph";
 import DominantDisplay from "./DominantDisplay";
+import OverallGraph from "./OverallGraph";
 
 const styles = {
   card: {
@@ -23,7 +24,8 @@ function EmotionCard(props) {
     labels,
     data,
     dominantColor,
-    dominantEmotionText
+    dominantEmotionText,
+    graphData
   } = props;
 
   return (
@@ -41,6 +43,7 @@ function EmotionCard(props) {
           color={dominantColor}
           dominantEmotionText={dominantEmotionText}
         />
+        <OverallGraph labels={labels} graphData={graphData} />
       </CardContent>
     </Card>
   );
@@ -55,7 +58,8 @@ EmotionCard.propTypes = {
   labels: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired,
   dominantColor: PropTypes.string.isRequired,
-  dominantEmotionText: PropTypes.string.isRequired
+  dominantEmotionText: PropTypes.string.isRequired,
+  graphData: PropTypes.array.isRequired
 };
 
 export default withStyles(styles)(EmotionCard);
