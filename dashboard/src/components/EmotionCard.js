@@ -7,10 +7,15 @@ import ChangeEmotionButton from "./ChangeEmotionButton";
 import EmotionGraph from "./EmotionGraph";
 import DominantDisplay from "./DominantDisplay";
 import OverallGraph from "./OverallGraph";
+import Grid from "@material-ui/core/Grid";
 
 const styles = {
-  card: {
-    maxWidth: 640
+  card: { minWidth: 1500, display: "block" },
+  content: {
+    display: "inline"
+  },
+  root: {
+    flexGrow: 1
   }
 };
 
@@ -29,22 +34,40 @@ function EmotionCard(props) {
   } = props;
 
   return (
-    <Card className={classes.card}>
-      <CardContent>
-        <EmotionGraph
-          emotion={emotion}
-          color={color}
-          currentTime={currentTime}
-          labels={labels}
-          data={data}
-        />
-        <ChangeEmotionButton emotionHandler={emotionHandler} />
-        <DominantDisplay
-          color={dominantColor}
-          dominantEmotionText={dominantEmotionText}
-        />
-        <OverallGraph labels={labels} graphData={graphData} />
-      </CardContent>
+    <Card className={classes.card} justify="center">
+      <Grid container className={classes.root}>
+        <Grid item xs={6}>
+          <CardContent>
+            <OverallGraph labels={labels} graphData={graphData} />
+          </CardContent>
+        </Grid>
+        <Grid item xs={6}>
+          <CardContent>
+            <EmotionGraph
+              emotion={emotion}
+              color={color}
+              currentTime={currentTime}
+              labels={labels}
+              data={data}
+            />
+          </CardContent>
+        </Grid>
+      </Grid>
+      <Grid container className={classes.root}>
+        <Grid item xs={6}>
+          <CardContent>
+            <DominantDisplay
+              color={dominantColor}
+              dominantEmotionText={dominantEmotionText}
+            />
+          </CardContent>
+        </Grid>
+        <Grid item xs={6}>
+          <CardContent>
+            <ChangeEmotionButton emotionHandler={emotionHandler} />
+          </CardContent>
+        </Grid>
+      </Grid>
     </Card>
   );
 }
