@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import request, jsonify
+from flask import request, jsonify, render_template
 from emo_recognition import open_camera
 from database import MLab
 app = Flask(__name__)
@@ -16,10 +16,13 @@ def homepage():
     return jsonify(docs)
 
 
-@app.route('/add', methods=['POST', 'GET'])
+@app.route('/go/', methods=['GET','POST'])
 def add():
+    data = request.get_json()
+    print(data)
     emo_entry = open_camera("https://www.youtube.com/watch?v=2JAElThbKrI")
     db.video.insert_one(emo_entry)
+    return render_template('home.html')
 
 
 @app.route('/find', methods=['POST', 'GET'])

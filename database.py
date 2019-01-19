@@ -21,3 +21,17 @@ class MLab:
         #     'scared': [0.01, 0.01, 0.01, 0.015, 0.015, 0.015, 0.01, 0.01, 0.01, 0.01],
         #     'neutral': [0.02, 0.02, 0.02, 0.015, 0.015, 0.015,0.02, 0.02, 0.02, 0.02],
         # })
+        self.video.insert_one({
+            'link':'https://www.youtube.com/watch?v=2JAElThbKrI',
+            'title': 'one punch man',
+            'dominant emotion': ['happiness', 'happiness', 'happiness', 'happiness', 'happiness',
+                                 'happiness', 'happiness', 'happiness','happiness','happiness'],
+            'end time': 10,
+            'happiness': [0.1, 0.2, 0.3, 0.4, 0.5, 0.3, 0.2, 0.1, 0.2, 0.11],
+            'surprise': [0.3, 0.4, 0.3, 0.2, 0.35, 0.3, 0.25, 0.2, 0.3, 0.3],
+            'anger': [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
+            'sadness': [0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.1, 0.1, 0.1, 0.1],
+            'disgust': [0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05],
+            'scared': [0.01, 0.01, 0.01, 0.015, 0.015, 0.015, 0.01, 0.01, 0.01, 0.01],
+            'neutral': [0.02, 0.02, 0.02, 0.015, 0.015, 0.015,0.02, 0.02, 0.02, 0.02],
+        })

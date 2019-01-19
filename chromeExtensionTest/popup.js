@@ -22,7 +22,7 @@ $(document).ready(function(){
     });
 	// stop link reloading the page
  event.preventDefault();
-}
+});
 // document.getElementById("maincam").onclick=callMainCam;
 // function callMainCam(){
 //   document.getElementById("ok").innerHTML="ok nice";
