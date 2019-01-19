@@ -1,0 +1,30 @@
+<html>
+<head>
+
+    <title>Emotion Detection for YouTube</title>
+
+    <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="main.css">
+
+</head>
+
+<body>
+
+<div id="container">
+
+    <video id="gum" playsinline autoplay muted></video>
+    <video id="recorded" playsinline loop></video>
+
+    <div>
+        <button id="start">Start camera</button>
+        <button id="record" disabled>Start Recording</button>
+        <button id="play" disabled>Play</button>
+        <button id="download" disabled>Download</button>
+    </div>
+
+<!-- include adapter for srcObject shim -->
+
+<script src="main.js" async></script>
+
+</body>
+</html>
