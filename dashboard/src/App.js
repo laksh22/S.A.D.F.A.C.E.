@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Youtube from "./components/YouTube";
+import Youtube from "./components/Youtube";
 import EmotionCard from "./components/EmotionCard";
 import SearchBar from "./components/SearchBar";
 import SampleTable from "./components/SampleTable";
@@ -11,10 +11,12 @@ class App extends Component {
     super(props);
     this.changeEmotion = this.changeEmotion.bind(this);
     this.changeVideo = this.changeVideo.bind(this);
+    this.updateTime = this.updateTime.bind(this);
     this.state = {
       emotion: "Happiness",
       color: "rgba(255, 99, 132, 0.6)",
-      videoLink: "https://www.youtube.com/watch?v=2JAElThbKrI"
+      videoLink: "https://www.youtube.com/watch?v=2JAElThbKrI",
+      time: 0
     };
   }
 
@@ -40,6 +42,13 @@ class App extends Component {
     console.log("CHANGING VIDEO");
   }
 
+  updateTime(newTime) {
+    this.setState({
+      time: newTime
+    });
+    console.log("Current Time:" + this.state.time);
+  }
+
   render() {
     return (
       <div>
@@ -55,11 +64,16 @@ class App extends Component {
             <AppNavbar />
             <SearchBar videoChanger={this.changeVideo} />
             <SampleTable />
-            <Youtube videoLink={this.state.videoLink} />
+            <Youtube
+              videoLink={this.state.videoLink}
+              currentTime={this.state.time}
+              updateTime={this.updateTime}
+            />
             <EmotionCard
               emotionHandler={this.changeEmotion}
               emotion={this.state.emotion}
               color={this.state.color}
+              currentTime={this.state.time}
             />
           </Grid>
         </Grid>
