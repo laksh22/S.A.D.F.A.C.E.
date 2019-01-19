@@ -47,6 +47,18 @@ class ChangeEmotionButton extends Component {
       case 30:
         this.props.emotionHandler("Surprise");
         break;
+      case 40:
+        this.props.emotionHandler("Sad");
+        break;
+      case 50:
+        this.props.emotionHandler("Neutral");
+        break;
+      case 60:
+        this.props.emotionHandler("Scared");
+        break;
+      case 70:
+        this.props.emotionHandler("Disgust");
+        break;
     }
   };
 
@@ -83,6 +95,18 @@ class ChangeEmotionButton extends Component {
             </MenuItem>
             <MenuItem value={30} text="Surprise">
               Surprise
+            </MenuItem>
+            <MenuItem value={40} text="Sad">
+              Sadness
+            </MenuItem>
+            <MenuItem value={50} text="Neutral">
+              Neutral
+            </MenuItem>
+            <MenuItem value={60} text="Scared">
+              Scared
+            </MenuItem>
+            <MenuItem value={70} text="Disgust">
+              Disgust
             </MenuItem>
           </Select>
         </FormControl>

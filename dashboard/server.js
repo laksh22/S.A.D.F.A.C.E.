@@ -4,8 +4,9 @@ const mongoose = require("mongoose");
 
 const videos = require("./routes/videos");
 
-var app = express();
+const app = express();
 
+//BodyParser middleware
 app.use(bodyParser.json());
 
 const db = require("./config/keys").mongoURI;
@@ -13,7 +14,9 @@ const db = require("./config/keys").mongoURI;
 //Connect to mongoDB
 mongoose
   .connect(db)
-  .then(() => console.log("Connected to MongoDB"))
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
   .catch(err => console.log(err));
 
 app.use("/search/videos", videos);

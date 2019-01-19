@@ -62,11 +62,7 @@ class EmotionGraph extends Component {
   }
 
   componentWillReceiveProps() {
-    console.log("PROPS GOT, COLOR:" + this.props.color);
     this.forceUpdate();
-    console.log(
-      "STATE UPDATED, COLOR:" + this.state.chartData.datasets[0].backgroundColor
-    );
   }
 
   render() {

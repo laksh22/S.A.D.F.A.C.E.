@@ -29,7 +29,6 @@ class SearchBar extends React.Component {
 
   changeVideo(e) {
     this.props.videoChanger(e.target.value);
-    console.log(e.target.value);
     this.setState({ name: e.target.value });
   }
 
