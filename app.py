@@ -16,7 +16,7 @@ def homepage():
     return jsonify(docs)
 
 
-@app.route('/go/', methods=['GET','POST'])
+@app.route('/go/', methods=['POST','GET'])
 def add():
     data = request.get_json()
     print(data)
@@ -25,25 +25,25 @@ def add():
     return render_template('home.html')
 
 
-@app.route('/find', methods=['POST', 'GET'])
-def find_video(link=None):
-    if link is None:
-        return jsonify([doc for doc in db.video.find()])
-    else:
-        query = {'link': link}
-        videos = db.video.find_one(query)
-        if videos is not None:
-            return jsonify(videos)
-        else:
-            return jsonify(db.video.find())
-
-
-@app.route('/delete/', methods=['POST', 'GET'])
-def delete_data(video=None):
-    db.db.drop_collection('videos')
-    videos = db.db.video.find()
-    # client.close()
-    return jsonify(videos)
+# @app.route('/find', methods=['POST', 'GET'])
+# def find_video(link=None):
+#     if link is None:
+#         return jsonify([doc for doc in db.video.find()])
+#     else:
+#         query = {'link': link}
+#         videos = db.video.find_one(query)
+#         if videos is not None:
+#             return jsonify(videos)
+#         else:
+#             return jsonify(db.video.find())
+#
+#
+# @app.route('/delete/', methods=['POST', 'GET'])
+# def delete_data(video=None):
+#     db.db.drop_collection('videos')
+#     videos = db.db.video.find()
+#     # client.close()
+#     return jsonify(videos)
 
 
 if __name__ == '__main__':

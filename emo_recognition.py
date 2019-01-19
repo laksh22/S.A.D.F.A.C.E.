@@ -9,6 +9,13 @@ from keras.models import load_model
 import numpy as np
 import time
 import math
+import numpy as np
+
+
+def get_type_convert(obj):
+    if isinstance(obj, np.generic):
+        return np.asscalar(obj)
+
 
 # parameters for loading data and images
 detection_model_path = 'haarcascade_files/haarcascade_frontalface_default.xml'
@@ -21,17 +28,17 @@ EMOTIONS = ["angry", "disgust", "scared", "happy", "sad", "surprised",
 
 
 def open_camera(link):
-    link_dict = {}
+    link_dict = {'dominant emotion':[],
+                 'happiness':[],
+                 'surprise':[],
+                 'anger':[],
+                 'sadness':[],
+                 'disgust':[],
+                 'scared':[],
+                 'neutral':[]
+                 }
     link_dict['link'] = link
     link_dict['title'] = find_title(find_vid(link))
-    link_dict['dominant'] = [None]*1000
-    link_dict['happy'] = [None]*1000
-    link_dict['surprised'] = [None]*1000
-    link_dict['angry'] = [None]*1000
-    link_dict['sad'] = [None]*1000
-    link_dict['scared'] = [None]*1000
-    link_dict['disgust'] = [None]*1000
-    link_dict['neutral'] = [None]*1000
     cap = cv2.VideoCapture(0)
     frame_rate = cap.get(5)  # frame rate
     emo_lists = []
@@ -47,14 +54,14 @@ def open_camera(link):
             if not emo_list:
                 pass
             else:
-                link_dict['dominant'][i] = emo_list[0]
-                link_dict['happy'][i] = emo_list[1]
-                link_dict['surprised'][i] = emo_list[2]
-                link_dict['angry'][i] = emo_list[3]
-                link_dict['sad'][i] = emo_list[4]
-                link_dict['scared'][i] = emo_list[5]
-                link_dict['disgust'][i] = emo_list[6]
-                link_dict['neutral'][i] = emo_list[7]
+                link_dict['dominant emotion'].append(emo_list[0])
+                link_dict['happiness'].append(get_type_convert(emo_list[1]))
+                link_dict['surprise'].append(get_type_convert(emo_list[2]))
+                link_dict['anger'].append(get_type_convert(emo_list[3]))
+                link_dict['sadness'].append(get_type_convert(emo_list[4]))
+                link_dict['disgust'].append(get_type_convert(emo_list[6]))
+                link_dict['scared'].append(get_type_convert(emo_list[5]))
+                link_dict['neutral'].append(get_type_convert(emo_list[7]))
                 i = i+1
         if cv2.waitKey(1) & 0xFF == ord('q'):
             cap.release()
