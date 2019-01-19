@@ -218,6 +218,15 @@ class App extends Component {
               data={this.state.data}
               dominantColor={this.state.dominantColor}
               dominantEmotionText={this.state.dominantEmotionText}
+              graphData={[
+                this.state.angry,
+                this.state.disgust,
+                this.state.scared,
+                this.state.happy,
+                this.state.sad,
+                this.state.surprised,
+                this.state.neutral
+              ]}
             />
           </Grid>
         </Grid>
