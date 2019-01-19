@@ -21,7 +21,7 @@ class App extends Component {
       videoLink: "2JAElThbKrI",
       time: 0,
       labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
-      data: [0, 10, 25, 43, 52, 82, 60, 88, 34, 23, 54],
+      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       angry: [],
       disgust: [],
       scared: [],
@@ -166,9 +166,9 @@ class App extends Component {
           scared: result.data[0].scared,
           sad: result.data[0].sadness,
           surprised: result.data[0].surprise,
-          neutral: result.data[0].neutral,
-          dominant: result[0]["dominant emotion"]
+          neutral: result.data[0].neutral
         });
+        console.log(this.state.happy);
       })
       .catch(error =>
         this.setState({
