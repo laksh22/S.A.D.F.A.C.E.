@@ -1,10 +1,10 @@
 from flask import Flask
 from flask import request, jsonify
 from emo_recognition import emo_list
-from database import mlab
+from database import MLab
 app = Flask(__name__)
 
-db = mlab()
+db = MLab()
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -14,7 +14,7 @@ def homepage():
 
 @app.route('/add', methods=['POST', 'GET'])
 def add():
-    link = 'https://www.youtube.com/watch?v=09R8_2nJtjg'
+    link = ''
     emo_entry = emo_list(link)
     db.videos.insert_one(emo_entry)
     return jsonify(db.videos.find())
@@ -23,6 +23,7 @@ def add():
 @app.route('/find', methods=['POST', 'GET'])
 def find_video(link=None):
     if link is None:
+
         return jsonify(db.videos.find())
     else:
         query = {'link': link}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Youtube from "./components/YouTube";
+import Youtube from "./components/youtube";
 import EmotionCard from "./components/EmotionCard";
 import SearchBar from "./components/SearchBar";
 import SampleTable from "./components/SampleTable";
