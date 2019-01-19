@@ -1,6 +1,5 @@
 <html>
 <head>
-
     <title>Emotion Detection for YouTube</title>
 
     <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
@@ -24,28 +23,14 @@ body {
     <video id="recorded" playsinline loop></video>
 
     <div>
-        <button id="start" onclick="myFunction()">Start camera</button>
+        <button id="start">Start camera</button>
         <button id="record" disabled>Start Recording</button>
         <button id="play" disabled>Play</button>
         <button id="download" disabled>Download</button>
     </div>
 </div>
 <!-- include adapter for srcObject shim -->
-<script>
-    var send = function() {
-    var request = new XMLHttpRequest();
-    // POST to httpbin which returns the POST data as JSON
-    request.open('POST', 'https://httpbin.org/post', /* async = */ false);
-
-    var formData = new FormData();
-    formData.append('time', 'b');
-    var xhr=new XMLHttpRequest();
-    xhr.open("post","127.0.0.1");
-    xhr.send(formdata);
-    request.send(formData);
-    console.log(request.response);
-  };
-</script>
+<script src="api.js"></script>
 <script src="main.js" async></script>
 </body>
 </html>
