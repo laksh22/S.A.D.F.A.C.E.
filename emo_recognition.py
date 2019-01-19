@@ -7,6 +7,8 @@ import imutils
 import cv2
 from keras.models import load_model
 import numpy as np
+import time
+import math
 
 # parameters for loading data and images
 detection_model_path = 'haarcascade_files/haarcascade_frontalface_default.xml'
@@ -18,11 +20,50 @@ EMOTIONS = ["angry", "disgust", "scared", "happy", "sad", "surprised",
             "neutral"]
 
 
-def get_dominant_emotion():
-    return 'happiness'
+def open_camera(link):
+    link_dict = {}
+    link_dict['link'] = link
+    link_dict['title'] = find_title(find_vid(link))
+    link_dict['dominant'] = [None]*1000
+    link_dict['happy'] = [None]*1000
+    link_dict['surprised'] = [None]*1000
+    link_dict['angry'] = [None]*1000
+    link_dict['sad'] = [None]*1000
+    link_dict['scared'] = [None]*1000
+    link_dict['disgust'] = [None]*1000
+    link_dict['neutral'] = [None]*1000
+    cap = cv2.VideoCapture(0)
+    frame_rate = cap.get(5)  # frame rate
+    emo_lists = []
+    i=0
+    while cap.isOpened():
+        frameId = cap.get(1)  # current frame number
+        ret, frame = cap.read()
+        cv2.imshow('frame', frame)
+        if not ret:
+            break
+        if frameId % math.floor(frame_rate) == 0:
+            emo_list = emo_dict(frame)
+            if not emo_list:
+                pass
+            else:
+                link_dict['dominant'][i] = emo_list[0]
+                link_dict['happy'][i] = emo_list[1]
+                link_dict['surprised'][i] = emo_list[2]
+                link_dict['angry'][i] = emo_list[3]
+                link_dict['sad'][i] = emo_list[4]
+                link_dict['scared'][i] = emo_list[5]
+                link_dict['disgust'][i] = emo_list[6]
+                link_dict['neutral'][i] = emo_list[7]
+                i = i+1
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            cap.release()
+            cv2.destroyAllWindows()
+    print(link_dict)
+    return link_dict
 
 
-def emo_list(frame):
+def emo_dict(frame):
     emotionDict={}
     emotion_list = ['1', '2', '3', '4', '5', '6', '7', '8']
     frame = imutils.resize(frame, width=300)
@@ -61,8 +102,8 @@ def emo_list(frame):
         emotion_list[7] = emotionDict['neutral']
     else:
         emotion_list = []
-
-    return emotion_list # append other metadata you want to be returned if you want
+    return emotion_list
+    # append other metadata you want to be returned if you want
 
 
 # # for example;

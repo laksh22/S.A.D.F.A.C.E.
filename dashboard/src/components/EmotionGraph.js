@@ -45,17 +45,35 @@ class EmotionGraph extends Component {
   componentDidMount() {
     this.interval = setInterval(() => {
       this.setState({
-        graphTime: this.props.currentTime
+        graphTime: this.props.currentTime,
+        chartData: {
+          labels: this.props.labels,
+          datasets: [
+            {
+              label: "Percentage",
+              data: this.props.data,
+              backgroundColor: this.props.color
+            }
+          ]
+        }
       });
       //this.changeGraph();
     }, 1000);
+  }
+
+  componentWillReceiveProps() {
+    console.log("PROPS GOT, COLOR:" + this.props.color);
+    this.forceUpdate();
+    console.log(
+      "STATE UPDATED, COLOR:" + this.state.chartData.datasets[0].backgroundColor
+    );
   }
 
   render() {
     return (
       <div className="chart">
         <Line
-          key="1"
+          key="Percentage"
           data={this.state.chartData}
           options={{
             title: {
