@@ -148,7 +148,10 @@ class App extends Component {
   }
 
   changeVideo(video) {
-    var vidIndex = video.split("?v=")[1].split("&")[0];
+    var vidIndex = "";
+    if (video.includes("?v=")) {
+      vidIndex = video.split("?v=")[1].split("&")[0];
+    }
     this.setState({
       videoLink: vidIndex
     });
@@ -173,8 +176,15 @@ class App extends Component {
       })
       .catch(error =>
         this.setState({
-          error,
-          isLoading: false
+          data: [0, 0, 0, 0, 0],
+          happy: [0, 0, 0, 0, 0],
+          angry: [0, 0, 0, 0, 0],
+          disgust: [0, 0, 0, 0, 0],
+          scared: [0, 0, 0, 0, 0],
+          sad: [0, 0, 0, 0, 0],
+          surprised: [0, 0, 0, 0, 0],
+          neutral: [0, 0, 0, 0, 0],
+          videoLink: ""
         })
       );
     this.setDominantColor();
