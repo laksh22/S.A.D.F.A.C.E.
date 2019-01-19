@@ -5,6 +5,7 @@ import SearchBar from "./components/SearchBar";
 import SampleTable from "./components/SampleTable";
 import AppNavbar from "./components/AppNavbar";
 import Grid from "@material-ui/core/Grid";
+import axios from "axios";
 
 class App extends Component {
   constructor(props) {
@@ -15,52 +16,111 @@ class App extends Component {
     this.state = {
       emotion: "Happiness",
       color: "rgba(255, 99, 132, 0.6)",
-      videoLink: "https://www.youtube.com/watch?v=2JAElThbKrI",
+      videoLink: "https://www.youtube.com/watch?v=_TUTJ0klnKk",
       time: 0,
       labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
-      data: [0, 10, 25, 43, 52, 82, 60, 88, 34, 23, 54]
+      data: [0, 10, 25, 43, 52, 82, 60, 88, 34, 23, 54],
+      angry: [],
+      disgust: [],
+      scared: [],
+      happy: [],
+      sad: [],
+      surprised: [],
+      neutral: []
     };
   }
 
-  getData() {
-    fetch("/search/videos")
+  componentWillMount() {
+    const url = `https://api.mlab.com/api/1/databases/nushack/collections/video?q={link:"${
+      this.state.videoLink
+    }"}&apiKey=jK4P4v-hA_-MNUJ_xXoHGD6T0bZYehNU`;
+    fetch(url)
       .then(res => res.json())
-      .then(data => console.log(data));
-  }
-
-  componentDidMount() {
-    this.getData();
+      .then(res => {
+        console.log(res);
+        return res;
+      })
+      .then(result => {
+        console.log("CHANGING DATA" + result[0].happiness);
+        this.setState({
+          data: result[0].happiness,
+          happy: result[0].happiness,
+          angry: result[0].anger,
+          disgust: result[0].disgust,
+          scared: result[0].scared,
+          sad: result[0].sadness,
+          surprised: result[0].surprise,
+          neutral: result[0].neutral
+        });
+      });
   }
 
   changeEmotion(newEmotion) {
     var newColor = " ";
+    var newEmotionData = [];
     if (newEmotion === "Happiness") {
-      newColor = "rgba(255, 99, 132, 0.6)";
+      newColor = "rgba(10, 160, 20, 0.6)";
+      newEmotionData = this.state.happy;
     } else if (newEmotion === "Anger") {
-      newColor = "rgba(54, 162, 235, 0.6)";
+      newColor = "rgba(255, 99, 132, 0.6)";
+      newEmotionData = this.state.angry;
     } else if (newEmotion === "Surprise") {
-      newColor = "rgba(255, 206, 86, 0.6)";
+      newColor = "rgba(210, 210, 86, 0.6)";
+      newEmotionData = this.state.surprised;
+    } else if (newEmotion === "Sad") {
+      newColor = "rgba(25, 26, 86, 0.6)";
+      newEmotionData = this.state.sad;
+    } else if (newEmotion === "Neutral") {
+      newColor = "rgba(54, 162, 235, 0.6)";
+      newEmotionData = this.state.neutral;
+    } else if (newEmotion === "Scared") {
+      newColor = "rgba(180, 0, 0, 0.6)";
+      newEmotionData = this.state.scared;
+    } else if (newEmotion === "Disgust") {
+      newColor = "rgba(139,69,19, 0.6)";
+      newEmotionData = this.state.disgust;
     }
     this.setState({
       emotion: newEmotion,
-      data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 9],
+      data: newEmotionData,
       color: newColor
     });
-    console.log(this.state.color);
   }
 
   changeVideo(video) {
     this.setState({
       videoLink: video
     });
-    console.log("CHANGING VIDEO");
+    console.log("NEW LINK: " + this.state.videoLink);
+    axios
+      .get(
+        `https://api.mlab.com/api/1/databases/nushack/collections/video?q={link:"${video}"}&apiKey=jK4P4v-hA_-MNUJ_xXoHGD6T0bZYehNU`
+      )
+      .then(result => {
+        console.log("API DATA: " + result.data[0].happiness);
+        this.setState({
+          data: result.data[0].happiness,
+          happy: result.data[0].happiness,
+          angry: result.data[0].anger,
+          disgust: result.data[0].disgust,
+          scared: result.data[0].scared,
+          sad: result.data[0].sadness,
+          surprised: result.data[0].surprise,
+          neutral: result.data[0].neutral
+        });
+      })
+      .catch(error =>
+        this.setState({
+          error,
+          isLoading: false
+        })
+      );
   }
 
   updateTime(newTime) {
     this.setState({
       time: newTime
     });
-    console.log("Current Time:" + this.state.time);
   }
 
   render() {

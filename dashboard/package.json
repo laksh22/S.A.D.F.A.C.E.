@@ -4,11 +4,13 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.0",
+    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "chart.js": "^2.7.3",
     "chartjs-plugin-annotation": "^0.5.7",
     "concurrently": "^4.1.0",
     "express": "^4.16.4",
+    "jquery": "^3.3.1",
     "mongoose": "^5.4.5",
     "react": "^16.7.0",
     "react-chartjs-2": "^2.7.4",
