@@ -163,7 +163,7 @@ class App extends Component {
     });
     axios
       .get(
-        `https://api.mlab.com/api/1/databases/nushack/collections/video?q={link:"${vidIndex}"}&apiKey=jK4P4v-hA_-MNUJ_xXoHGD6T0bZYehNU`
+        `https://api.mlab.com/api/1/databases/nushack/collections/video?q={vid:"${vidIndex}"}&apiKey=jK4P4v-hA_-MNUJ_xXoHGD6T0bZYehNU`
       )
       .then(result => {
         this.setState(
