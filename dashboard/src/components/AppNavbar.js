@@ -10,7 +10,7 @@ class AppNavbar extends Component {
         <AppBar style={{ background: "#0070c6" }}>
           <Toolbar>
             <Typography variant="title" color="inherit">
-              Emotions
+              S.A.D.F.A.C.E.
             </Typography>
           </Toolbar>
         </AppBar>
