@@ -7,9 +7,6 @@ $(document).ready(function(){
     });
   // var timestamp = document.querySelector('.video-stream').getCurrentTime();
   // $('#time').html("Current Time : " + timestamp);
-  jQuery(function(){
-   jQuery('#start').click();
-});
 });
 
 // Add listener for start button
