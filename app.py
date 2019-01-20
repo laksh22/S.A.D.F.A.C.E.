@@ -10,13 +10,7 @@ db = MLab()
 
 @app.route('/go/', methods=['GET', 'POST'])
 def homepage():
-    docs = []
     form = request.form.get('link', "")
-    print(form)
-    # for doc in db.video.find():
-    #     doc.pop('_id')
-    #     docs.append(doc)
-    #
     emo_entry = open_camera(form)
     db.video.insert_one(emo_entry)
     return render_template('home.html')
