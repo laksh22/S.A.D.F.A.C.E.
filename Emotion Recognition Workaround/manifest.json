@@ -18,7 +18,6 @@
     "tabs",
     "activeTab",
     "http://localhost/*",
-    "https://www.youtube.com/*",
-    "http://127.0.0.1:5000/"
+    "https://www.youtube.com/*"
  ]
 }

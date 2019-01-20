@@ -1,7 +1,7 @@
 var tablink;
 $(document).ready(function(){
   chrome.tabs.getSelected(null,function(tab) {
-    tablink = document.createElement('a');
+   tablink = document.createElement('a');
     tablink.href = tab.url;
     $('#host').html("Host : " + tablink)
     });
@@ -78,28 +78,10 @@ function handleSourceOpen(event) {
   console.log('Source buffer: ', sourceBuffer);
 }
 
-function blobToString(b) {
-var u, x;
-u = URL.createObjectURL(b);
-x = new XMLHttpRequest();
-x.open('GET', u, false); // although sync, you're not fetching over internet
-x.send();
-URL.revokeObjectURL(u);
-return x.responseText;
-}
+
 function handleDataAvailable(event) {
   if (event.data && event.data.size > 0) {
     recordedBlobs.push(event.data);
-    blob=event.data;
-const reader = new FileReader();
-       e=event;
-        reader.addEventListener('loadend', (e) => {
-          console.log(text);
-       });
- 
-       reader.readAsText(blob);
-       blobString = e.srcElement.result;
-        i++;
      }
   }
 

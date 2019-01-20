@@ -1,4 +1,3 @@
-
 // POST to httpbin which returns the POST data as JSON
 
 const Http = new XMLHttpRequest();
@@ -11,4 +10,3 @@ Http.send(data);
 Http.onreadystatechange=(e)=>{
 console.log(Http.responseText)
 };
-
