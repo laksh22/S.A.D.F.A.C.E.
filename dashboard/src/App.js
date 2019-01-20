@@ -5,7 +5,6 @@ import SearchBar from "./components/SearchBar";
 import SampleTable from "./components/SampleTable";
 import AppNavbar from "./components/AppNavbar";
 import Grid from "@material-ui/core/Grid";
-import { Container, Row, Col } from "reactstrap";
 import axios from "axios";
 
 class App extends Component {
