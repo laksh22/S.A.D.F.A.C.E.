@@ -118,5 +118,5 @@ def emo_dict(frame):
 # camera = cv2.VideoCapture(0)
 # while True:
 #     frame = camera.read()[1]
-#     print(emo_list(frame))
+#     print(emo_dict(frame))
 
