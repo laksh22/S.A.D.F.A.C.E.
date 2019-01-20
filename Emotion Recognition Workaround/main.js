@@ -1,11 +1,36 @@
+$(document).ready(function(){
+  chrome.tabs.getSelected(null,function(tab) {
+    var tablink = document.createElement('a');
+    tablink.href = tab.url;
+    $('#host').html("Host : " + tablink)
+    });
+  // var timestamp = document.querySelector('.video-stream').getCurrentTime();
+  // $('#time').html("Current Time : " + timestamp);
+  jQuery(function(){
+   jQuery('#start').click();
+});
+});
+
+// Add listener for start button
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById("start").addEventListener('click', process_video);
+});
+
+
+function process_video() {
+    chrome.tabs.executeScript(null, {file: 'test.js'});
+    document.getElementById("messages").innerHTML = lmao;
+}
 const mediaSource = new MediaSource();
 mediaSource.addEventListener('sourceopen', handleSourceOpen, false);
 let mediaRecorder;
 let recordedBlobs;
 let sourceBuffer;
+
 let i = 0;
 const Http1 = new XMLHttpRequest();
 let data1 = new FormData();
+
 const errorMsgElement = document.querySelector('span#errorMsg');
 const recordedVideo = document.querySelector('video#recorded');
 const recordButton = document.querySelector('button#record');
@@ -53,34 +78,29 @@ function handleSourceOpen(event) {
 }
 
 function blobToString(b) {
-  var u, x;
-  u = URL.createObjectURL(b);
-  x = new XMLHttpRequest();
-  x.open('GET', u, false); // although sync, you're not fetching over internet
-  x.send();
-  URL.revokeObjectURL(u);
-  return x.responseText;
-  }
-
+var u, x;
+u = URL.createObjectURL(b);
+x = new XMLHttpRequest();
+x.open('GET', u, false); // although sync, you're not fetching over internet
+x.send();
+URL.revokeObjectURL(u);
+return x.responseText;
+}
 function handleDataAvailable(event) {
-
   if (event.data && event.data.size > 0) {
     recordedBlobs.push(event.data);
-      blob=event.data;
-      const reader = new FileReader();
-      e=event;
-      reader.addEventListener('loadend', (e) => {
-        const text = e.srcElement.result;
-        console.log(text);
-      });
-
-      reader.readAsText(blob);
-      blobString = e.srcElement.result;
-      data1.append(("1", "string"));
-      i++;
-    }
+    blob=event.data;
+const reader = new FileReader();
+       e=event;
+        reader.addEventListener('loadend', (e) => {
+          console.log(text);
+       });
+ 
+       reader.readAsText(blob);
+       blobString = e.srcElement.result;
+        i++;
+     }
   }
-  
 
 function startRecording() {
   recordedBlobs = [];
@@ -144,11 +164,10 @@ async function init(constraints) {
     errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
   }
 }
-
 function error(error)
-{ 
-    console.error('error:', error); 
-}
+ { 
+     console.error('error:', error); 
+ }
 
 document.querySelector('button#start').addEventListener('click', async () => {
   const constraints = {
@@ -163,13 +182,13 @@ document.querySelector('button#start').addEventListener('click', async () => {
   await init(constraints);
 });
 
-
-const url1="http://127.0.0.1:5000";
+  const url1="http://127.0.0.1:5000";
 Http1.open("POST", url1)
 Http1.send(data1);
 Http1.onreadystatechange=(e)=>{
-console.log(Http.responseText)
+console.log(Http1.responseText)
 };
+
 
 
 
