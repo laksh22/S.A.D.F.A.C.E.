@@ -16,37 +16,44 @@ class OverallGraph extends Component {
           {
             label: "Angry",
             data: this.props.graphData[0],
-            borderColor: "rgba(255, 99, 132, 0.6)"
+            borderColor: "rgba(255, 99, 132, 0.6)",
+            backgroundColor: "rgba(255, 99, 132, 0.0)"
           },
           {
             label: "Disgust",
             data: this.props.graphData[1],
-            borderColor: "rgba(139,69,19, 0.6)"
+            borderColor: "rgba(139,69,19, 0.6)",
+            backgroundColor: "rgba(255, 99, 132, 0.0)"
           },
           {
             label: "Scared",
             data: this.props.graphData[2],
-            borderColor: "rgba(180, 0, 0, 0.6)"
+            borderColor: "rgba(180, 0, 0, 0.6)",
+            backgroundColor: "rgba(255, 99, 132, 0.0)"
           },
           {
             label: "Happy",
             data: this.props.graphData[3],
-            borderColor: "rgba(10, 160, 20, 0.6)"
+            borderColor: "rgba(10, 160, 20, 0.6)",
+            backgroundColor: "rgba(255, 99, 132, 0.0)"
           },
           {
             label: "Sad",
             data: this.props.graphData[4],
-            borderColor: "rgba(25, 26, 86, 0.6)"
+            borderColor: "rgba(25, 26, 86, 0.6)",
+            backgroundColor: "rgba(255, 99, 132, 0.0)"
           },
           {
             label: "Surprised",
             data: this.props.graphData[5],
-            borderColor: "rgba(210, 210, 86, 0.6)"
+            borderColor: "rgba(210, 210, 86, 0.6)",
+            backgroundColor: "rgba(255, 99, 132, 0.0)"
           },
           {
             label: "Neutral",
             data: this.props.graphData[6],
-            borderColor: "rgba(54, 162, 235, 0.6)"
+            borderColor: "rgba(54, 162, 235, 0.6)",
+            backgroundColor: "rgba(255, 99, 132, 0.0)"
           }
         ]
       },
