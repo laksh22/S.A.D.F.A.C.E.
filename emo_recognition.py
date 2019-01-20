@@ -41,6 +41,8 @@ def open_camera(link):
     link_dict['vid'] = find_vid(link)
     link_dict['title'] = find_title(find_vid(link))
     cap = cv2.VideoCapture(0)
+
+
     frame_rate = cap.get(5)  # frame rate
     emo_lists = []
     i=0
@@ -48,6 +50,7 @@ def open_camera(link):
         frameId = cap.get(1)  # current frame number
         ret, frame = cap.read()
         cv2.imshow('frame', frame)
+        cv2.resizeWindow('frame', 200, 200)
         if not ret:
             break
         if frameId % math.floor(frame_rate) == 0:
