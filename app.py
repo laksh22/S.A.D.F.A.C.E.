@@ -8,17 +8,17 @@ app = Flask(__name__)
 db = MLab()
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/go/', methods=['GET', 'POST'])
 def homepage():
     docs = []
     form = request.form.get('link', "")
-    # print(form)
+    print(form)
     # for doc in db.video.find():
     #     doc.pop('_id')
     #     docs.append(doc)
     #
-    # emo_entry = open_camera(form)
-    # db.video.insert_one(emo_entry)
+    emo_entry = open_camera("https://www.youtube.com/watch?v=qgGIqRFvFFk")
+    db.video.insert_one(emo_entry)
     return render_template('home.html')
 
 # @app.route('/find', methods=['POST', 'GET'])
