@@ -22,7 +22,8 @@ class MLab:
         #     'neutral': [0.02, 0.02, 0.02, 0.015, 0.015, 0.015,0.02, 0.02, 0.02, 0.02],
         # })
         self.video.insert_one({
-            'link':'2JAElThbKrI',
+            'link': 'https://www.youtube.com/watch?v=RGJlNxEJFUc',
+            'vid': 'RGJlNxEJFUc',
             'title': 'one punch man',
             'dominant emotion': ['happiness', 'happiness', 'happiness', 'happiness', 'happiness',
                                  'happiness', 'happiness', 'happiness','happiness','happiness'],

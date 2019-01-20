@@ -38,6 +38,7 @@ def open_camera(link):
                  'neutral':[]
                  }
     link_dict['link'] = link
+    link_dict['vid'] = find_vid(link)
     link_dict['title'] = find_title(find_vid(link))
     cap = cv2.VideoCapture(0)
     frame_rate = cap.get(5)  # frame rate

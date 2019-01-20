@@ -3,33 +3,23 @@ from flask import request, jsonify, render_template
 from emo_recognition import open_camera
 from database import MLab
 app = Flask(__name__)
-import sys
 
 
 db = MLab()
-print(db)
-#
-@app.route('/', methods=['GET','POST'])
+
+
+@app.route('/', methods=['GET', 'POST'])
 def homepage():
     docs = []
-    form = request.form.get('1', "")
-    print(form)
-    print(sys.getsizeof(form))
-
-    for doc in db.video.find():
-        doc.pop('_id')
-        docs.append(doc)
-    return jsonify(docs)
-
-
-@app.route('/go/', methods=['POST','GET'])
-def add():
-    data = request.form_data_parser_class()
-    print(data)
-    emo_entry = open_camera("2JAElThbKrI")
-    db.video.insert_one(emo_entry)
+    form = request.form.get('link', "")
+    # print(form)
+    # for doc in db.video.find():
+    #     doc.pop('_id')
+    #     docs.append(doc)
+    #
+    # emo_entry = open_camera(form)
+    # db.video.insert_one(emo_entry)
     return render_template('home.html')
-
 
 # @app.route('/find', methods=['POST', 'GET'])
 # def find_video(link=None):
