@@ -5,7 +5,6 @@ import SearchBar from "./components/SearchBar";
 import SampleTable from "./components/SampleTable";
 import AppNavbar from "./components/AppNavbar";
 import Grid from "@material-ui/core/Grid";
-import { Container, Row, Col } from "reactstrap";
 import axios from "axios";
 
 class App extends Component {
@@ -166,6 +165,11 @@ class App extends Component {
         `https://api.mlab.com/api/1/databases/nushack/collections/video?q={vid:"${vidIndex}"}&apiKey=jK4P4v-hA_-MNUJ_xXoHGD6T0bZYehNU`
       )
       .then(result => {
+        var newLabel = [];
+        for (var i = 0; i < result.data[0]["end time"]; i++) {
+          newLabel.push(`${i}`);
+        }
+        console.log(newLabel.length);
         this.setState(
           {
             data: result.data[0].happiness,
@@ -176,12 +180,14 @@ class App extends Component {
             sad: result.data[0].sadness,
             surprised: result.data[0].surprise,
             neutral: result.data[0].neutral,
-            dominant: result.data[0]["dominant emotion"]
+            dominant: result.data[0]["dominant emotion"],
+            labels: newLabel
           },
           () => this.setDominantColor()
         );
       })
-      .catch(error =>
+      .catch(error => {
+        console.log("ERROR: " + error);
         this.setState(
           {
             data: [0, 0, 0, 0, 0],
@@ -193,11 +199,12 @@ class App extends Component {
             surprised: [0, 0, 0, 0, 0],
             neutral: [0, 0, 0, 0, 0],
             videoLink: "",
-            dominantEmotionText: "No Record"
+            dominantEmotionText: "No Record",
+            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
           },
           () => this.setDominantColor()
-        )
-      );
+        );
+      });
   }
 
   updateTime(newTime) {
