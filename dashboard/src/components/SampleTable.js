@@ -42,7 +42,7 @@ function createData(name, dominant) {
 
 const rows = [
   createData("One Punch Man", "Happy"),
-  createData("Battlefield 5", "Anger"),
+  createData("Battlefront 2", "Anger"),
   createData("YouTube Rewind 2018", "Sad")
 ];
 
