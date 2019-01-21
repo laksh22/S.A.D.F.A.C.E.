@@ -1,0 +1,53 @@
+<html>
+<head>
+
+    <title>Emotion Detection for YouTube</title>
+
+    <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="main.css">
+    <style type="text/css">
+body {
+    min-width: 400px; /* your desired width */
+    max-width: 100%;
+    position: relative;
+    vertical-align: middle;
+},
+        a{
+            color: #aa00ff;
+            font-size: 24px;
+            text-decoration: none;
+
+        }
+</style>
+<script src = "jquery.js"></script>
+<script src="main.js" async></script>
+<script src = "api.js" async></script>
+</head>
+
+<body>
+
+<div id="container">
+	<div id="host"></div>
+
+    <video id="gum" playsinline autoplay muted></video>
+    <video id="recorded" playsinline loop></video>
+
+    <div>
+        <button id="start"  style="display: none;">Start camera</button>
+        <button id="record">Start Recording</button>
+        <button id="play" disabled>Play</button>
+        <button id="download" disabled>Download</button>
+    </div>
+<a href="http://127.0.0.1:5000/go/" target="_blank">Link</a>
+</div>
+<!-- <div>
+	 <iframe id="player" width="640" height="360" src="https://www.youtube.com/embed/zua0_IXcPFY?enablejsapi=1" frameborder="0" allowfullscreen></iframe>
+
+  <button>click time</button>
+</div> -->
+
+<!-- include adapter for srcObject shim -->
+
+
+</body>
+</html>
